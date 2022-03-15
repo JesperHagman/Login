@@ -14,7 +14,8 @@ function LoginForm({error}) {
             email: details.email,
             password: details.password
         }
-        fetch('/api/login', {
+
+    fetch('/api/login', {
             method: 'POST', 
             headers: {
                 'Content-Type': 'application/json',
@@ -26,8 +27,12 @@ function LoginForm({error}) {
         })
         .then((data) => {
             submitText.innerHTML = data.message // Adding a status text to your registration
+            console.log(data)
+            
         })
     }
+
+
      
   return (
     <form onSubmit={loginHandler}>

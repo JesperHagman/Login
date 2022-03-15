@@ -24,24 +24,22 @@ app.use(express.urlencoded({ extended: true }));
 // Add user to mongoDB-databas from register page
 app.post("/api/register", async (req, res) =>{
     console.log("request made")
-   
-    const user = new User(req.body)
 
-    User.find()
-    .then((result) => {
-        for(i of result) {
-            console.log(i.email)  
-        }
-        if(user.email == i.email) {
-            console.log("Email already in use")
-            res.send({message: "This email is already in use"})
-        }else{
-            user.save()
-            res.send({message: "You are now registerd"})
-            console.log("user added to database")
-        }
-    }).catch(err => console.log(err)); 
-}) 
+    const user = new User(req.body)
+    const emailLowerCase = user.email.toLowerCase()
+
+    const isEmailAlreadyRegistered = await User.exists({ email: emailLowerCase });
+    
+    if (isEmailAlreadyRegistered) {
+        console.log("Email already in use")
+        res.send({message: "This email is already in use"})
+    } else {
+        user.save()
+        res.send({message: "You are now registerd"})
+        console.log("user added to database")
+    } 
+});
+  
 
 
 
