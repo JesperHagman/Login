@@ -26,6 +26,7 @@ function RegisterForm() {
         })
         .then((data) => {
             submitText.innerHTML = data.message // Adding a status text to your registration
+            
         })
     }
     

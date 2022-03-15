@@ -39,32 +39,24 @@ app.post("/api/register", async (req, res) =>{
         console.log("user added to database")
     } 
 });
-  
-
-
 
 // check if user is registerd befor logging in
- app.post("/api/login", (req, res) =>{
+ app.post("/api/login", async (req, res) =>{
     console.log("request made")
 
     const user = new User(req.body)
+    const emailLowerCase = user.email.toLowerCase()
+    const isPasswordCorecct = user.password
 
-    User.find()
-    .then((result) => {
-        for(let i of result) {
-            console.log(i.email)
-        }
-
-        /*  if(user.email !== i.email && user.password !== i.password) {
-             console.log("Details does not match")
-             res.send({message: "Details does not match"})
-         }else{
-             console.log("you are logged in")
-             res.send({message: "You are now logged in"})
-         }   */
-     
-    }).catch(err => console.log(err)); 
+    const isEmailCorecct = await User.exists({ email: emailLowerCase});
+    const passwordCheck = await User.exists({ password: isPasswordCorecct });
     
-
-})
- 
+    if (isEmailCorecct && passwordCheck) {
+        res.send({message: "You are now logged in"})
+        res.send({loggedIn: true})
+        console.log("You are now logged in")
+    } else {
+        console.log("Details does not match")
+        res.send({message: "Details does not match"})
+    } 
+});

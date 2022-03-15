@@ -1,6 +1,6 @@
 import React, { useState }  from 'react'
 import LoginForm from '../LoginForm'
-import LoggedInPage from './LoggedInPage'
+import LoggedInPage from './ProfilePage'
 
 export default function LoginPage() {
   const [user, setUser] = useState({name: "", email: ""})
@@ -21,27 +21,35 @@ export default function LoginPage() {
           },
           body: JSON.stringify(user),
       })
+      .then((res) => {
+        return res.json()
+    })
+    .then((data) => {
+     const renderPage = data
+     console.log(renderPage)
+    })
   }
+  
 
-  const Logout = () => {
+  /* const Logout = () => {
     setUser({name: "", email: ""})
-  }
+  } */
 
-  if(true) {
+  /* if(true) {
     <LoggedInPage />
   } else {
     <LoginForm />
-  }
+  } */
  
   return (
     <div>
         <div className="App">
-            {(user.email !== "") ? (
-            <LoggedInPage/>
-        ) : (
-          <LoginForm Login={Login} error={error} />
-      )}
-    </div>
+            {(false) 
+            ? 
+            (<LoggedInPage/>)
+            : 
+            (<LoginForm Login={Login} error={error} />)}
+        </div>
     </div>
   )
 }
