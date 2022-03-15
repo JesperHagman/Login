@@ -52,8 +52,7 @@ app.post("/api/register", async (req, res) =>{
     const passwordCheck = await User.exists({ password: isPasswordCorecct });
     
     if (isEmailCorecct && passwordCheck) {
-        res.send({message: "You are now logged in"})
-        res.send({loggedIn: true})
+        res.send({message: "You are now logged in", loggedIn: true})
         console.log("You are now logged in")
     } else {
         console.log("Details does not match")
