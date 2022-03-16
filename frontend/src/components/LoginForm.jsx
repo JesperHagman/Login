@@ -29,13 +29,8 @@ function LoginForm() {
         .then((data) => {
             submitText.innerHTML = data.message // Adding a status text to your registration
             if(data.loggedIn === true) {
-                navigate(
-                    {
-                        pathname: '/profilepage',
-                        state: {
-                        loggedIn: true
-                    }
-                })
+                navigate('/ProfilePage', 
+                {state: { loggedIn: true}})  
             } 
         })
     }

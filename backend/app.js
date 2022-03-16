@@ -48,10 +48,12 @@ app.post("/api/register", async (req, res) =>{
     const emailLowerCase = user.email.toLowerCase()
     const isPasswordCorecct = user.password
 
-    const isEmailCorecct = await User.exists({ email: emailLowerCase});
-    const passwordCheck = await User.exists({ password: isPasswordCorecct });
-    
-    if (isEmailCorecct && passwordCheck) {
+    const isEmailCorecct = await User.find({ email: emailLowerCase})
+    for(i of isEmailCorecct){
+    }
+    const correcctPassword = i.password
+ // ifall email inte finns?
+    if (isEmailCorecct && correcctPassword == isPasswordCorecct) {
         res.send({
             message: "You are now logged in", 
             loggedIn: true
@@ -60,6 +62,6 @@ app.post("/api/register", async (req, res) =>{
     } else {
         console.log("Details does not match")
         res.send({message: "Details does not match"})
-    } 
-});
+    }
+})
 
