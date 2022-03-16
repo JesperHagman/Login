@@ -35,8 +35,6 @@ function LoginForm() {
         })
     }
 
-
-     
   return (
     <form onSubmit={loginHandler}>
         <div className="form-inner">
@@ -54,14 +52,11 @@ function LoginForm() {
                 <input type="password" password="password" id="password" required onChange={e =>setDetails({...details, password: e.target.value})} value={details.password}/>
             </div>
             
-
             <input type="submit" value="LOGIN" />
         </div>
 
     </form>
-
-  )
-  
+  ) 
 }
 
 export default LoginForm
