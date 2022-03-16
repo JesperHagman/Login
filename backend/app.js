@@ -47,21 +47,35 @@ app.post("/api/register", async (req, res) =>{
     const user = new User(req.body)
     const emailLowerCase = user.email.toLowerCase()
     const isPasswordCorecct = user.password
+    // ifall email inte finns?
 
-    const isEmailCorecct = await User.find({ email: emailLowerCase})
-    for(i of isEmailCorecct){
-    }
-    const correcctPassword = i.password
- // ifall email inte finns?
-    if (isEmailCorecct && correcctPassword == isPasswordCorecct) {
-        res.send({
-            message: "You are now logged in", 
-            loggedIn: true
-        })
-        console.log("You are now logged in")
-    } else {
-        console.log("Details does not match")
-        res.send({message: "Details does not match"})
-    }
+    /* const isEmailAlreadyRegistered = await User.exists({ email: emailLowerCase });
+    console.log(isEmailAlreadyRegistered) */
+
+        const doesEmailExist = await User.exists({ email: emailLowerCase });
+        const isEmailCorecct = await User.find({ email: emailLowerCase})
+        console.log(isEmailCorecct)
+        console.log(doesEmailExist)
+
+        if (doesEmailExist) {
+            for(i of isEmailCorecct){
+            }
+            const correcctPassword = i.password
+            if (isEmailCorecct && correcctPassword == isPasswordCorecct) {
+                res.send({
+                    message: "You are now logged in", 
+                    loggedIn: true
+                })
+                console.log("You are now logged in")
+            } else {
+                console.log("Details does not match")
+                res.send({message: "Details does not match"})
+            }
+        }else {
+            console.log("Details does not match")
+            res.send({message: "Details does not match"})
+        }
+    
 })
+
 
