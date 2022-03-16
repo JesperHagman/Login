@@ -1,7 +1,7 @@
 import React, { useState} from 'react'
 import { Link, useNavigate } from "react-router-dom"
 
-function LoginForm({error}) {
+function LoginForm() {
     const [details, setDetails] = useState({name: "", email: "", password: "", lastname: ""})
     const submitText = document.getElementById("message")
     const navigate = useNavigate();
@@ -28,9 +28,14 @@ function LoginForm({error}) {
         })
         .then((data) => {
             submitText.innerHTML = data.message // Adding a status text to your registration
-            console.log(data)
-            if(data.loggedIn == true) {
-                navigate('/profilepage')
+            if(data.loggedIn === true) {
+                navigate(
+                    {
+                        pathname: '/profilepage',
+                        state: {
+                        loggedIn: true
+                    }
+                })
             } 
         })
     }

@@ -1,9 +1,10 @@
 import React, { useState} from 'react'
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 function RegisterForm() {
     const [details, setDetails] = useState({name: "", email: "", password: "", lastname: ""})
     const submitText = document.getElementById("message")
+    const navigate = useNavigate();
 
     const registerHandler = async (e) => {
         e.preventDefault()
@@ -26,7 +27,9 @@ function RegisterForm() {
         })
         .then((data) => {
             submitText.innerHTML = data.message // Adding a status text to your registration
-            
+            if(data.registered === true) {
+                navigate('/Loginform')
+            } 
         })
     }
     
